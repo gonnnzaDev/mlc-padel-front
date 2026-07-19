@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --font-color: rgb(255, 255, 255);
+    --border-color: white;
+    --color: rgb(51, 174, 51);
+    --color2: rgb(25, 86, 25);
+    --background-color: #050505;
+}
+
+
+
+
+body {
+    margin: 0;
+    color: white;
+    background-color: var(--background-color);
+
+
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image: url("./assets/fondo.png");
+    background-size: auto;
+    background-position: left center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    filter: blur(3px);
+    z-index: -1;
+
+}
+
+.general-container {
+    margin: 10vh 0;
+
+}
