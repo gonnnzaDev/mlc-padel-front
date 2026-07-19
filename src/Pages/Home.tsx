@@ -1,5 +1,5 @@
 import Navbar from "../Components/Navbar";
-import foto from '../assets/fondo.png';
+import foto from '../assets/presentacion.png';
 import './Home.css'
 export default function Home() {
 
