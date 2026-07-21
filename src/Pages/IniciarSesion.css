@@ -63,10 +63,7 @@
     color: white;
 }
 
-button {
-    all: unset;
 
-}
 .botones button {
     cursor: pointer;
     border: 1px solid white;
