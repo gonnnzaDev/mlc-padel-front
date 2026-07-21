@@ -19,11 +19,14 @@ export default function Navbar() {
                 <Link to="/">
                     Inicio
                 </Link>
-                
+
                 <Link to="/productos">
                     Productos
                 </Link>
 
+            </section>
+            <section className='buscador-container'>
+                <input type="text" placeholder='¿Qué estás buscando para tu juego?' id="buscador-principal-input" />
             </section>
             <section className='botones-navbar-container'>
 

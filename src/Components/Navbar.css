@@ -18,6 +18,12 @@ nav {
     overflow: hidden;
 }
 
+.buscador-container {
+    
+    
+    margin: 0 auto;
+}
+
 nav h2 {
 
     color: var(--font-color);
@@ -29,9 +35,9 @@ nav input {
     font-size: 16px;
     padding: 10px 15px;
     width: 30vw;
-    border: none;
-    background: rgba(0, 0, 0, 0.484);
+    border: 1px solid gray;
     color: #ffffff;
+    background-color: rgba(55, 55, 55, 0.755);
     outline: none;
     transition: 0.3s ease;
     border-radius: 5px;

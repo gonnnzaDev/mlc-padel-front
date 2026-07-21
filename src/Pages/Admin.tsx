@@ -1,6 +1,7 @@
 import Productos from "./Productos";
 import './Admin.css'
 import Navbar from "../Components/Navbar";
+import { Link } from "react-router-dom";
 interface Producto {
     id: number;
     nombre: string;
@@ -61,10 +62,26 @@ export default function Admin() {
 
                                 <h2>Productos</h2>
                                 <input type="text" />
-                                <button>Agregar Producto</button>
+                                <Link to="agregar-producto">Agregar Producto</Link>
                             </header>
                             <ResumenProductos productos={productosList} />
 
+
+
+                        </div>
+
+                    </section>
+
+
+                    <section className="manage-container">
+                        <div className="pedidos-manage-container">
+                            <header>
+
+                                <h2>Pedidos</h2>
+
+                            </header>
+
+                            <table></table>
 
 
                         </div>
@@ -78,7 +95,7 @@ export default function Admin() {
 }
 
 
-
+// contador
 function ContadorStock(productos: Productos) {
 
 
@@ -122,7 +139,7 @@ function ContadorProductosSinStock(productos: Productos) {
 
 }
 
-
+//productos o 2da aseccion
 function ResumenProductos(productos: Productos) {
 
 
@@ -153,7 +170,7 @@ function ProductoManager({ producto, cont }: { producto: Producto, cont: number 
         <p>N: {producto.nombre} --- Stock: {producto.stock}</p>
         <div className="boton-producto-manage">
 
-            <button style={{backgroundColor : 'rgb(205, 8, 8)'}} key={producto.id}>Borrar</button>
+            <button style={{ backgroundColor: 'rgb(205, 8, 8)' }} key={producto.id}>Borrar</button>
             <button key={producto.id}>Editar</button>
         </div>
     </>);
@@ -176,6 +193,113 @@ function ProductoManager({ producto, cont }: { producto: Producto, cont: number 
     }
 
 
+
+
+
+}
+
+interface Cliente {
+    nombre: string;
+    email: string;
+    telefono: string
+
+}
+
+interface Pago {
+    metodoDePago: string;
+    referencia: string;
+    montoTotal: number;
+}
+
+interface Envio {
+
+    direccion: string;
+    ciudad: string;
+    cp: number;
+}
+
+interface ProductoComprado{
+    nombre: string;
+    cantidad : number;
+    precioUnitario: number;
+}
+interface Pedido {
+    estado: string;
+    id: number;
+    fecha: string;
+    pago: Pago;
+    detalleEnvio: Envio;
+    detalleCliente: Cliente;
+    productos: ProductoComprado[];
+}
+
+interface Pedidos {
+    pedidos: Pedido[];
+}
+
+function ResumenPedidos(pedidosList: Pedidos) {
+
+
+    return (
+
+        <div className="pedidos-container">
+            {pedidosList.pedidos.map(p => {
+                return <PedidoManager
+                    pedido={p}
+                />
+            })}
+        </div>
+
+
+    );
+
+}
+
+function PedidoManager({ pedido }: { pedido: Pedido }) {
+    var total = 0;
+    
+    return (
+        <div className="pedido-container">
+            <header>
+
+                <p>#{pedido.id}</p>
+                <p>{pedido.estado}</p>
+                <p>{pedido.fecha}</p>
+                <p>{pedido.pago.montoTotal}</p>
+            </header>
+            <main className="detalle-container">
+                <section className="detalle-cliente">
+                    <p>Nombre: {pedido.detalleCliente.nombre} </p>
+                    <p>Email: {pedido.detalleCliente.email}</p>
+                    <p>Telefono: {pedido.detalleCliente.telefono}</p>
+                </section>
+                <section className="detalle-envio">
+                    <p>Direccion: {pedido.detalleEnvio.direccion}</p>
+                    <p>Ciudad: {pedido.detalleEnvio.ciudad}</p>
+                    <p>Codigo Postal: {pedido.detalleEnvio.cp}</p>
+                </section>
+                <section className="detalle-productos">
+                    <p>Productos</p>
+                    {
+                        pedido.productos.map(p => {
+                            return <div className="pedido-producto-particular">
+                                <p>{p.nombre}</p>
+                                <p>{p.cantidad}</p>
+                                <p>{p.precioUnitario}</p>
+                            </div>
+                            total += p.precioUnitario;
+                        })
+                    }
+
+                    <p>Total : {total}</p>
+                </section>
+                <section className="detalle-pago">
+                    <p>Metodo de pago : {pedido.pago.metodoDePago}</p>
+                    <p>Referencia: {pedido.pago.referencia}</p>
+                </section>
+            </main>
+        </div>
+    );
 
 
 
