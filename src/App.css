@@ -40,7 +40,7 @@ body::before {
 }
 
 .general-container {
-    margin: 10vh 0;
+    margin: 10vh 0 0 0;
 
 }
 @keyframes fadeIn {

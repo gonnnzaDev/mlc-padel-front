@@ -35,17 +35,25 @@ export interface Pedidos {
     pedidos: Pedido[];
 }
 
+
 export interface Producto {
     id: number;
     nombre: string;
     descripcion: string;
+    fechaDeAgregado: string;
     stock: number;
     precioLista: number;
-    precio: number;
+    precioEfectivoTransferencia: number;
     categoria: string;
     importado: boolean;
-    imagenes: string[];
+    imagenes: Imagen[];
 }
+
+export interface Imagen {
+    id: number;
+    url: string;
+}
+
 
 export interface Productos {
     productos: Producto[];

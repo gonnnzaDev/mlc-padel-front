@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'; 
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './Pages/Home.tsx';
 import Admin from './Pages/Admin.tsx';
@@ -6,6 +6,8 @@ import IniciarSesion from './Pages/IniciarSesion.tsx';
 import Productos from './Pages/Productos.tsx';
 import AgregarProducto from './Pages/AgregarProducto.tsx';
 function App() {
+
+
 
   return (
     <>

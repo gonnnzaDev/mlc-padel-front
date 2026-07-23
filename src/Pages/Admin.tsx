@@ -3,26 +3,15 @@ import Navbar from "../Components/Navbar";
 import { Link } from "react-router-dom";
 import { ContadorStock, ContadorProductosSinStock } from "../Components/AdminStockCounters";
 import { ResumenProductos } from "../Components/AdminProductManager";
-import type { Producto } from "../Components/AdminTypes";
+import { useFetchProductos } from '../Components/ProductsList';
 
-const productoInstanciado: Producto = {
-    id: 101,
-    nombre: "Teclado Mecánico RGB",
-    descripcion: "Teclado hot-swappable con switches Red y retroiluminación personalizada.",
-    stock: 25,
-    precioLista: 85000,
-    precio: 72000,
-    categoria: "Periféricos",
-    importado: true,
-    imagenes: [
-        "https://ejemplo.com",
-        "https://ejemplo.com"
-    ]
-};
-
-const productosList = [productoInstanciado, productoInstanciado, productoInstanciado, productoInstanciado, productoInstanciado, productoInstanciado, productoInstanciado, productoInstanciado, productoInstanciado, productoInstanciado];
 
 export default function Admin() {
+
+    const { productos: productos, loading } = useFetchProductos();
+
+    if (loading) return <p>Cargando productos...</p>;
+
     return (
         <>
             <Navbar />
@@ -31,8 +20,8 @@ export default function Admin() {
                 <div className="admin-container">
                     <h1>Panel Administrador</h1>
                     <section className="contadores-container">
-                        <ContadorStock productos={productosList} />
-                        <ContadorProductosSinStock productos={productosList} />
+                        <ContadorStock productos={productos} />
+                        <ContadorProductosSinStock productos={productos} />
                     </section>
                     <section className="manage-container">
                         <div className="productos-manage-container">
@@ -41,7 +30,7 @@ export default function Admin() {
                                 <input type="text" />
                                 <Link to="agregar-producto">Agregar Producto</Link>
                             </header>
-                            <ResumenProductos productos={productosList} />
+                            <ResumenProductos productos={productos} />
                         </div>
                     </section>
 

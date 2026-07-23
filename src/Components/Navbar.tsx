@@ -1,6 +1,7 @@
 import './Navbar.css'
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import Search from './Seach';
 
 
 export default function Navbar() {
@@ -25,9 +26,7 @@ export default function Navbar() {
                 </Link>
 
             </section>
-            <section className='buscador-container'>
-                <input type="text" placeholder='¿Qué estás buscando para tu juego?' id="buscador-principal-input" />
-            </section>
+                <Search />
             <section className='botones-navbar-container'>
 
 

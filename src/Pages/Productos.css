@@ -16,7 +16,9 @@
 .products-container h2 {
     font-size: 40px;
 }
-
+.product-container{
+    display: flex;
+}
 .products {
     display: grid;
     gap: 30px;

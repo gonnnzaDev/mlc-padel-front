@@ -1,0 +1,41 @@
+.filters-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    gap: 20px;
+    height: auto;
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(128, 128, 128, 0.529);
+    min-height: 100vh;
+
+}
+
+.category-container{
+    
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+    align-items: center;
+    margin-top: 15vh ;
+
+}
+
+.category-link{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 0 0 10px 0;
+    overflow: hidden;
+
+}
+
+.filters-container a{
+    text-decoration: none;
+    color: white;
+}
+
+
+

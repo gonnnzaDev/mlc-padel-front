@@ -1,6 +1,9 @@
 import './AdminStockCounters.css'
 import type { Productos } from "./AdminTypes";
 
+
+
+
 export function ContadorStock({ productos }: Productos) {
     const total = productos.reduce((aux, producto) => aux + producto.stock, 0);
 

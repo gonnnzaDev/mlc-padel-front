@@ -1,28 +1,49 @@
-import './ProductsList.css'
+import "./ProductsList.css";
 import ProductCard from "./ProductCard";
+import { useState, useEffect, useMemo } from 'react';
 
-const productos = [
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-    { name: 'Gonzalo', priceMoney: 2999, priceTransfer: 3000, stock: 9, photo: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm90JUMzJUIzZ3JhZm98ZW58MHx8MHx8fDA%3D' },
-];
+import type { Producto } from './AdminTypes'
+
+import { useSearchParams } from 'react-router-dom';
 
 export default function ProductsList() {
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get('q') || '';
+
+    const { productos, loading } = useFetchProductos(query || undefined);
+
+    if (loading) return <p>Cargando productos...</p>;
+
     return (
         <section className='products-container'>
-            <h2>Productos Disponibles</h2>
+            <h2>{query ? `Buscaste: ${query}` : 'Productos Disponibles:'}</h2>
             <div className='products'>
-                {productos.map((p, i) => (
-                    <ProductCard key={i} {...p} />
+                {productos.map((p) => (
+                    <ProductCard key={p.id} {...p} />
                 ))}
             </div>
         </section>
     );
+
+
+}
+
+export function useFetchProductos(query?: string) {
+    const [loading, setLoading] = useState(true);
+    const [productos, setProductos] = useState<Producto[]>([]);
+
+    useEffect(() => {
+        setLoading(true);
+        const base = `${import.meta.env.VITE_API_URL}/productos`;
+
+        const url = query ? `${base}/buscar?q=${encodeURIComponent(query)}` : base;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(setProductos)
+            .catch(console.error)
+            .finally(() => setLoading(false))
+    }, [query]);
+
+    return { productos, loading };
 }

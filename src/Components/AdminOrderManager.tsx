@@ -36,12 +36,12 @@ export function PedidoManager({ pedido }: { pedido: Pedido }) {
                 <section className="detalle-productos">
                     <p>Productos</p>
                     {pedido.productos.map(p => {
-                        total += p.producto.precio;
+                        total += p.producto.precioEfectivoTransferencia;
                         return (
                             <div className="pedido-producto-particular">
                                 <p>{p.producto.nombre}</p>
                                 <p>{p.cantidad}</p>
-                                <p>{p.producto.precio}</p>
+                                <p>{p.producto.precioEfectivoTransferencia}</p>
                             </div>
                         );
                     })}

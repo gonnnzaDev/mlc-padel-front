@@ -1,0 +1,17 @@
+.buscador-container {
+    
+    
+    margin: 0 auto;
+}
+
+nav input {
+    font-size: 16px;
+    padding: 10px 15px;
+    width: 30vw;
+    border: 1px solid gray;
+    color: #ffffff;
+    background-color: rgba(55, 55, 55, 0.755);
+    outline: none;
+    transition: 0.3s ease;
+    border-radius: 5px;
+}
